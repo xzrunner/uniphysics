@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="cloth">
+      <UniqueIdentifier>{393be717-98ec-4fd1-88de-90de33ea00f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="fluid">
+      <UniqueIdentifier>{82718332-a5ce-4f52-8c56-20684f342e7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="destruction">
+      <UniqueIdentifier>{04ffac6e-a15b-475b-8c30-63fa989dcac2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cloth\nv">
+      <UniqueIdentifier>{7ebd72f7-2bae-4b54-b3d6-651f562ae521}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cloth\mesh">
+      <UniqueIdentifier>{730472c2-eed9-4b22-b49a-5691d1fe04c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cloth\base">
+      <UniqueIdentifier>{3060825b-f435-4d8c-9feb-6624225ae537}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cloth\utility">
+      <UniqueIdentifier>{009dc0ed-7882-4e3c-83b9-ecf04a072448}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="external">
+      <UniqueIdentifier>{723bf465-2fa1-4598-8378-3f2eebe1d606}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="external\task">
+      <UniqueIdentifier>{29e360f0-dcc8-464e-b1a9-c3fecdd9ed71}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\uniphysics\cloth\nv\Solver.h">
+      <Filter>cloth\nv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\uniphysics\cloth\nv\Cloth.h">
+      <Filter>cloth\nv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\uniphysics\cloth\nv\Fabric.h">
+      <Filter>cloth\nv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\uniphysics\cloth\SceneController.h">
+      <Filter>cloth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\uniphysics\cloth\nv\Factory.h">
+      <Filter>cloth\nv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\uniphysics\cloth\Factory.h">
+      <Filter>cloth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\uniphysics\cloth\nv\NvCloth.h">
+      <Filter>cloth\nv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\uniphysics\cloth\ClothMeshData.h">
+      <Filter>cloth\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\uniphysics\cloth\Cloth.h">
+      <Filter>cloth\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\uniphysics\cloth\Fabric.h">
+      <Filter>cloth\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\uniphysics\cloth\Solver.h">
+      <Filter>cloth\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\uniphysics\cloth\JobManager.h">
+      <Filter>cloth\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\external\task\PxCpuDispatcher.h">
+      <Filter>external\task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\external\task\PxGpuDispatcher.h">
+      <Filter>external\task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\external\task\PxGpuTask.h">
+      <Filter>external\task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\external\task\PxTask.h">
+      <Filter>external\task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\external\task\PxTaskDefine.h">
+      <Filter>external\task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\external\task\PxTaskManager.h">
+      <Filter>external\task</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\source\cloth\nv\Solver.cpp">
+      <Filter>cloth\nv</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\cloth\nv\Cloth.cpp">
+      <Filter>cloth\nv</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\cloth\nv\Fabric.cpp">
+      <Filter>cloth\nv</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\cloth\nv\Factory.cpp">
+      <Filter>cloth\nv</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\cloth\nv\NvCloth.cpp">
+      <Filter>cloth\nv</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\cloth\ClothMeshData.cpp">
+      <Filter>cloth\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\cloth\JobManager.cpp">
+      <Filter>cloth\utility</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
