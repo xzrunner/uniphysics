@@ -29,15 +29,54 @@
     <ClInclude Include="..\..\..\include\uniphysics\cloth\nv\Solver.h" />
     <ClInclude Include="..\..\..\include\uniphysics\cloth\SceneController.h" />
     <ClInclude Include="..\..\..\include\uniphysics\cloth\Solver.h" />
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\Body.h" />
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\bullet\Body.h" />
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\bullet\Shape.h" />
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\bullet\World.h" />
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\Shape.h" />
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\World.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\source\cloth\ClothMeshData.cpp" />
-    <ClCompile Include="..\..\..\source\cloth\JobManager.cpp" />
-    <ClCompile Include="..\..\..\source\cloth\nv\Cloth.cpp" />
-    <ClCompile Include="..\..\..\source\cloth\nv\Fabric.cpp" />
-    <ClCompile Include="..\..\..\source\cloth\nv\Factory.cpp" />
-    <ClCompile Include="..\..\..\source\cloth\nv\NvCloth.cpp" />
-    <ClCompile Include="..\..\..\source\cloth\nv\Solver.cpp" />
+    <ClCompile Include="..\..\..\source\cloth\ClothMeshData.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/cloth/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/cloth/</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\cloth\JobManager.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/cloth/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/cloth/</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\cloth\nv\Cloth.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/cloth/nv/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/cloth/nv/</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\cloth\nv\Fabric.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/cloth/nv/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/cloth/nv/</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\cloth\nv\Factory.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/cloth/nv/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/cloth/nv/</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\cloth\nv\NvCloth.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/cloth/nv/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/cloth/nv/</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\cloth\nv\Solver.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/cloth/nv/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/cloth/nv/</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\rigid\bullet\Body.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/rigid/bullet/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/rigid/bullet/</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\rigid\bullet\Shape.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/rigid/bullet/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/rigid/bullet/</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\rigid\bullet\World.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/rigid/bullet/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/rigid/bullet/</ObjectFileName>
+    </ClCompile>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectName>0.uniphysics</ProjectName>
@@ -82,8 +121,8 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\external;..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\external\boost\include;..\..\..\..\external\nvcloth\include;..\..\..\..\external\nvcloth\extensions\include;..\..\..\..\external\pxshared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;__STDC_LIMIT_MACROS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\external;..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\external\boost\include;..\..\..\..\external\nvcloth\include;..\..\..\..\external\nvcloth\extensions\include;..\..\..\..\external\pxshared\include;..\..\..\..\external\bullet\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;__STDC_LIMIT_MACROS;_ENABLE_EXTENDED_ALIGNED_STORAGE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -96,8 +135,8 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\..\external;..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\external\boost\include;..\..\..\..\external\nvcloth\include;..\..\..\..\external\nvcloth\extensions\include;..\..\..\..\external\pxshared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;__STDC_LIMIT_MACROS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\external;..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\external\boost\include;..\..\..\..\external\nvcloth\include;..\..\..\..\external\nvcloth\extensions\include;..\..\..\..\external\pxshared\include;..\..\..\..\external\bullet\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;__STDC_LIMIT_MACROS;_ENABLE_EXTENDED_ALIGNED_STORAGE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader />
