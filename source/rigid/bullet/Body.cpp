@@ -31,11 +31,12 @@ Body::Body(float mass, const sm::vec3& pos, const std::shared_ptr<rigid::Shape>&
 
 #define USE_MOTIONSTATE 1
 #ifdef USE_MOTIONSTATE
-    auto transform = btTransform(btMatrix3x3(), btVector3(pos.x, pos.y, pos.z));
+    btTransform transform;
+    transform.setIdentity();
+    transform.setOrigin(btVector3(pos.x, pos.y, pos.z));
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(transform);
 
 	btRigidBody::btRigidBodyConstructionInfo c_info(mass, myMotionState, bt_shape, local_inertia);
-
     m_impl = std::make_unique<btRigidBody>(c_info);
 	//m_impl->setContactProcessingThreshold(m_defaultContactProcessingThreshold);
 
