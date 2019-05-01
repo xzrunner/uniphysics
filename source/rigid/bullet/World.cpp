@@ -16,6 +16,7 @@ namespace bullet
 
 World::World()
 {
+    Init();
 }
 
 void World::AddBody(const std::shared_ptr<rigid::Body>& body)
