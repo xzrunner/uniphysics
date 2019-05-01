@@ -13,9 +13,10 @@ namespace rigid
 namespace bullet
 {
 
-Body::Body(float mass, const sm::vec3& pos, const rigid::Shape& shape, const sm::vec4& color)
+Body::Body(float mass, const sm::vec3& pos, const std::shared_ptr<rigid::Shape>& shape, const sm::vec4& color)
+    : m_shape(shape)
 {
-    auto bt_shape = static_cast<const Shape&>(shape).GetImpl().get();
+    auto bt_shape = std::static_pointer_cast<Shape>(shape)->GetImpl().get();
 	btAssert((!bt_shape || bt_shape->getShapeType() != INVALID_SHAPE_PROXYTYPE));
 
 	//rigidbody is dynamic if and only if mass is non zero, otherwise static

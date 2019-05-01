@@ -21,7 +21,7 @@ namespace bullet
 class Body : public rigid::Body
 {
 public:
-    Body(float mass, const sm::vec3& pos, const rigid::Shape& shape,
+    Body(float mass, const sm::vec3& pos, const std::shared_ptr<rigid::Shape>& shape,
         const sm::vec4& color = sm::vec4(1, 0, 0, 1));
 
     virtual sm::vec3 GetPosition() const override;
@@ -30,6 +30,8 @@ public:
 
 private:
     std::unique_ptr<btRigidBody> m_impl = nullptr;
+
+    std::shared_ptr<rigid::Shape> m_shape = nullptr;
 
 }; // Body
 
