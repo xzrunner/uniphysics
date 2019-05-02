@@ -114,6 +114,15 @@
     <ClInclude Include="..\..\..\include\uniphysics\rigid\bullet\Shape.h">
       <Filter>0.rigid\bullet</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\Constraint.h">
+      <Filter>0.rigid\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\bullet\Constraint.h">
+      <Filter>0.rigid\bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\bullet\Utility.h">
+      <Filter>0.rigid\bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\cloth\nv\Solver.cpp">
@@ -144,6 +153,9 @@
       <Filter>0.rigid\bullet</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\rigid\bullet\Body.cpp">
+      <Filter>0.rigid\bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\rigid\bullet\Constraint.cpp">
       <Filter>0.rigid\bullet</Filter>
     </ClCompile>
   </ItemGroup>

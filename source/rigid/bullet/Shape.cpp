@@ -1,4 +1,5 @@
 #include "uniphysics/rigid/bullet/Shape.h"
+#include "uniphysics/rigid/bullet/Utility.h"
 
 #include <BulletCollision/CollisionShapes/btBoxShape.h>
 
@@ -19,8 +20,7 @@ Shape::~Shape()
 
 void Shape::InitBoxShape(const sm::vec3& half_extents)
 {
-    btVector3 bt_he(half_extents.x, half_extents.y, half_extents.z);
-    m_impl = std::make_unique<btBoxShape>(bt_he);
+    m_impl = std::make_unique<btBoxShape>(vec3_sm2bt(half_extents));
 }
 
 }

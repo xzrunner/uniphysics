@@ -1,5 +1,6 @@
 #include "uniphysics/rigid/bullet/Body.h"
 #include "uniphysics/rigid/bullet/Shape.h"
+#include "uniphysics/rigid/bullet/Utility.h"
 
 #include <BulletCollision/BroadphaseCollision/btBroadphaseProxy.h>
 #include <BulletCollision/CollisionShapes/btCollisionShape.h>
@@ -33,7 +34,7 @@ Body::Body(float mass, const sm::vec3& pos, const std::shared_ptr<rigid::Shape>&
 #ifdef USE_MOTIONSTATE
     btTransform transform;
     transform.setIdentity();
-    transform.setOrigin(btVector3(pos.x, pos.y, pos.z));
+    transform.setOrigin(vec3_sm2bt(pos));
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(transform);
 
 	btRigidBody::btRigidBodyConstructionInfo c_info(mass, myMotionState, bt_shape, local_inertia);
@@ -50,8 +51,17 @@ Body::Body(float mass, const sm::vec3& pos, const std::shared_ptr<rigid::Shape>&
 
 sm::vec3 Body::GetPosition() const
 {
-    auto p = m_impl->getWorldTransform().getOrigin();
-    return sm::vec3(p.x(), p.y(), p.z());
+    return vec3_bt2sm(m_impl->getWorldTransform().getOrigin());
+}
+
+void Body::ForceActivationState(int state)
+{
+    m_impl->forceActivationState(state);
+}
+
+void Body::Activate()
+{
+    m_impl->activate();
 }
 
 }

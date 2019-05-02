@@ -26,6 +26,10 @@ public:
 
     virtual sm::vec3 GetPosition() const override;
 
+    virtual void ForceActivationState(int state) override;
+
+    virtual void Activate() override;
+
     auto& GetImpl() { return m_impl; }
 
 private:

@@ -16,6 +16,10 @@ public:
 
     virtual sm::vec3 GetPosition() const = 0;
 
+    virtual void ForceActivationState(int state) = 0;
+
+    virtual void Activate() = 0;
+
 }; // Body
 
 }
