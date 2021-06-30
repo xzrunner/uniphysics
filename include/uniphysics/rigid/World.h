@@ -1,8 +1,8 @@
 #pragma once
 
-#include <SM_Vector.h>
+#include "uniphysics/noncopyable.h"
 
-#include <boost/noncopyable.hpp>
+#include <SM_Vector.h>
 
 #include <memory>
 
@@ -14,7 +14,7 @@ namespace rigid
 class Body;
 class Constraint;
 
-class World : boost::noncopyable
+class World : noncopyable
 {
 public:
     virtual ~World() {}

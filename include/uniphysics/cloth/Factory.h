@@ -1,8 +1,8 @@
 #pragma once
 
-#include <SM_Vector.h>
+#include "uniphysics/noncopyable.h"
 
-#include <boost/noncopyable.hpp>
+#include <SM_Vector.h>
 
 #include <memory>
 #include <vector>
@@ -17,7 +17,7 @@ class Fabric;
 class Cloth;
 class ClothMeshData;
 
-class Factory : boost::noncopyable
+class Factory : noncopyable
 {
 public:
     virtual ~Factory() {}

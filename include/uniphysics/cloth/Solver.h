@@ -1,6 +1,6 @@
 #pragma once
 
-#include <boost/noncopyable.hpp>
+#include "uniphysics/noncopyable.h"
 
 #include <memory>
 
@@ -11,7 +11,7 @@ namespace cloth
 
 class Cloth;
 
-class Solver : boost::noncopyable
+class Solver : noncopyable
 {
 public:
     virtual ~Solver() {}

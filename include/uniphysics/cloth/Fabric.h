@@ -1,6 +1,6 @@
 #pragma once
 
-#include <boost/noncopyable.hpp>
+#include "uniphysics/noncopyable.h"
 
 #include <memory>
 
@@ -9,7 +9,7 @@ namespace up
 namespace cloth
 {
 
-class Fabric : boost::noncopyable
+class Fabric : noncopyable
 {
 public:
     virtual ~Fabric() {}

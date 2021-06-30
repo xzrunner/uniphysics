@@ -1,15 +1,15 @@
 #pragma once
 
-#include <SM_Vector.h>
+#include "uniphysics/noncopyable.h"
 
-#include <boost/noncopyable.hpp>
+#include <SM_Vector.h>
 
 namespace up
 {
 namespace rigid
 {
 
-class Body : boost::noncopyable
+class Body : noncopyable
 {
 public:
     virtual ~Body() {}

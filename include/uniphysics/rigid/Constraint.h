@@ -1,13 +1,13 @@
 #pragma once
 
-#include <boost/noncopyable.hpp>
+#include "uniphysics/noncopyable.h"
 
 namespace up
 {
 namespace rigid
 {
 
-class Constraint : boost::noncopyable
+class Constraint : noncopyable
 {
 public:
     virtual ~Constraint() {}
