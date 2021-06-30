@@ -9,6 +9,14 @@
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\external\task\PxCpuDispatcher.h" />
@@ -29,13 +37,21 @@
     <ClInclude Include="..\..\..\include\uniphysics\cloth\nv\Solver.h" />
     <ClInclude Include="..\..\..\include\uniphysics\cloth\SceneController.h" />
     <ClInclude Include="..\..\..\include\uniphysics\cloth\Solver.h" />
+    <ClInclude Include="..\..\..\include\uniphysics\noncopyable.h" />
     <ClInclude Include="..\..\..\include\uniphysics\rigid\Body.h" />
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\box2d\Body.h" />
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\box2d\config.h" />
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\box2d\DebugDraw.h" />
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\box2d\Shape.h" />
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\box2d\World.h" />
     <ClInclude Include="..\..\..\include\uniphysics\rigid\bullet\Body.h" />
     <ClInclude Include="..\..\..\include\uniphysics\rigid\bullet\Constraint.h" />
     <ClInclude Include="..\..\..\include\uniphysics\rigid\bullet\Shape.h" />
     <ClInclude Include="..\..\..\include\uniphysics\rigid\bullet\Utility.h" />
     <ClInclude Include="..\..\..\include\uniphysics\rigid\bullet\World.h" />
     <ClInclude Include="..\..\..\include\uniphysics\rigid\Constraint.h" />
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\DebugDraw.h" />
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\Factory.h" />
     <ClInclude Include="..\..\..\include\uniphysics\rigid\Shape.h" />
     <ClInclude Include="..\..\..\include\uniphysics\rigid\World.h" />
   </ItemGroup>
@@ -43,50 +59,92 @@
     <ClCompile Include="..\..\..\source\cloth\ClothMeshData.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/cloth/</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/cloth/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)/cloth/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)/cloth/</ObjectFileName>
     </ClCompile>
     <ClCompile Include="..\..\..\source\cloth\JobManager.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/cloth/</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/cloth/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)/cloth/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)/cloth/</ObjectFileName>
     </ClCompile>
     <ClCompile Include="..\..\..\source\cloth\nv\Cloth.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/cloth/nv/</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/cloth/nv/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)/cloth/nv/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)/cloth/nv/</ObjectFileName>
     </ClCompile>
     <ClCompile Include="..\..\..\source\cloth\nv\Fabric.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/cloth/nv/</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/cloth/nv/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)/cloth/nv/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)/cloth/nv/</ObjectFileName>
     </ClCompile>
     <ClCompile Include="..\..\..\source\cloth\nv\Factory.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/cloth/nv/</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/cloth/nv/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)/cloth/nv/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)/cloth/nv/</ObjectFileName>
     </ClCompile>
     <ClCompile Include="..\..\..\source\cloth\nv\NvCloth.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/cloth/nv/</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/cloth/nv/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)/cloth/nv/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)/cloth/nv/</ObjectFileName>
     </ClCompile>
     <ClCompile Include="..\..\..\source\cloth\nv\Solver.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/cloth/nv/</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/cloth/nv/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)/cloth/nv/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)/cloth/nv/</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\rigid\box2d\Body.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/rigid/box2d/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/rigid/box2d/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)/rigid/box2d/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)/rigid/box2d/</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\rigid\box2d\DebugDraw.cpp" />
+    <ClCompile Include="..\..\..\source\rigid\box2d\Shape.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/rigid/box2d/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/rigid/box2d/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)/rigid/box2d/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)/rigid/box2d/</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\rigid\box2d\World.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/rigid/box2d/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/rigid/box2d/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)/rigid/box2d/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)/rigid/box2d/</ObjectFileName>
     </ClCompile>
     <ClCompile Include="..\..\..\source\rigid\bullet\Body.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/rigid/bullet/</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/rigid/bullet/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)/rigid/bullet/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)/rigid/bullet/</ObjectFileName>
     </ClCompile>
     <ClCompile Include="..\..\..\source\rigid\bullet\Constraint.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/rigid/bullet/</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/rigid/bullet/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)/rigid/bullet/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)/rigid/bullet/</ObjectFileName>
     </ClCompile>
     <ClCompile Include="..\..\..\source\rigid\bullet\Shape.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/rigid/bullet/</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/rigid/bullet/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)/rigid/bullet/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)/rigid/bullet/</ObjectFileName>
     </ClCompile>
     <ClCompile Include="..\..\..\source\rigid\bullet\World.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/rigid/bullet/</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/rigid/bullet/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)/rigid/bullet/</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)/rigid/bullet/</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\rigid\Factory.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectName>0.uniphysics</ProjectName>
+    <ProjectName>uniphysics</ProjectName>
     <ProjectGuid>{A94BC06E-93B2-4F30-AB4E-7D677A1D5B54}</ProjectGuid>
     <RootNamespace>uniphysics</RootNamespace>
     <Keyword>Win32Proj</Keyword>
@@ -95,13 +153,24 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -111,6 +180,12 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
@@ -128,8 +203,8 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\external;..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\external\boost\include;..\..\..\..\external\nvcloth\include;..\..\..\..\external\nvcloth\extensions\include;..\..\..\..\external\pxshared\include;..\..\..\..\external\bullet\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;__STDC_LIMIT_MACROS;_ENABLE_EXTENDED_ALIGNED_STORAGE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\external;..\..\..\include;..\..\..\external\NvCloth\NvCloth\include;..\..\..\external\NvCloth\NvCloth\extensions\include;..\..\..\external\NvCloth\PxShared\include;..\..\..\external\bullet3\src;..\..\..\external\box2d\include;..\..\..\..\sm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;__STDC_LIMIT_MACROS;_ENABLE_EXTENDED_ALIGNED_STORAGE;NO_BOOST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -142,13 +217,25 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\..\external;..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\external\boost\include;..\..\..\..\external\nvcloth\include;..\..\..\..\external\nvcloth\extensions\include;..\..\..\..\external\pxshared\include;..\..\..\..\external\bullet\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;__STDC_LIMIT_MACROS;_ENABLE_EXTENDED_ALIGNED_STORAGE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\external;..\..\..\include;..\..\..\external\NvCloth\NvCloth\include;..\..\..\external\NvCloth\NvCloth\extensions\include;..\..\..\external\NvCloth\PxShared\include;..\..\..\external\bullet3\src;..\..\..\external\box2d\include;..\..\..\..\sm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;__STDC_LIMIT_MACROS;_ENABLE_EXTENDED_ALIGNED_STORAGE;NO_BOOST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\..\external;..\..\..\include;..\..\..\external\NvCloth\NvCloth\include;..\..\..\external\NvCloth\NvCloth\extensions\include;..\..\..\external\NvCloth\PxShared\include;..\..\..\external\bullet3\src;..\..\..\external\box2d\include;..\..\..\..\sm;..\..\..\..\tessellation\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;__STDC_LIMIT_MACROS;_ENABLE_EXTENDED_ALIGNED_STORAGE;NO_BOOST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\..\external;..\..\..\include;..\..\..\external\NvCloth\NvCloth\include;..\..\..\external\NvCloth\NvCloth\extensions\include;..\..\..\external\NvCloth\PxShared\include;..\..\..\external\bullet3\src;..\..\..\external\box2d\include;..\..\..\..\sm;..\..\..\..\tessellation\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;__STDC_LIMIT_MACROS;_ENABLE_EXTENDED_ALIGNED_STORAGE;NO_BOOST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

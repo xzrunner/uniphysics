@@ -40,6 +40,15 @@
     <Filter Include="0.rigid\base">
       <UniqueIdentifier>{6209ef43-843f-4e65-a606-6d659df808fd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="utility">
+      <UniqueIdentifier>{7fcc3333-79b1-48b9-8395-47bad9971aa1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0.rigid\box2d">
+      <UniqueIdentifier>{a50b326c-f832-4664-8a37-7782544c5af8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0.rigid\tools">
+      <UniqueIdentifier>{54729276-4ff7-4bf7-b34c-b24186d75d8e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\uniphysics\cloth\nv\Solver.h">
@@ -123,6 +132,30 @@
     <ClInclude Include="..\..\..\include\uniphysics\rigid\bullet\Utility.h">
       <Filter>0.rigid\bullet</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\uniphysics\noncopyable.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\box2d\World.h">
+      <Filter>0.rigid\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\box2d\Body.h">
+      <Filter>0.rigid\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\box2d\Shape.h">
+      <Filter>0.rigid\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\box2d\DebugDraw.h">
+      <Filter>0.rigid\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\DebugDraw.h">
+      <Filter>0.rigid\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\Factory.h">
+      <Filter>0.rigid\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\box2d\config.h">
+      <Filter>0.rigid\box2d</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\cloth\nv\Solver.cpp">
@@ -157,6 +190,21 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\rigid\bullet\Constraint.cpp">
       <Filter>0.rigid\bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\rigid\box2d\World.cpp">
+      <Filter>0.rigid\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\rigid\box2d\Body.cpp">
+      <Filter>0.rigid\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\rigid\box2d\Shape.cpp">
+      <Filter>0.rigid\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\rigid\box2d\DebugDraw.cpp">
+      <Filter>0.rigid\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\rigid\Factory.cpp">
+      <Filter>0.rigid\tools</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

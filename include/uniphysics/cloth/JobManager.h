@@ -7,6 +7,7 @@
 #include <queue>
 #include <vector>
 #include <mutex>
+#include <functional>
 
 namespace physx { class PxTaskManager; }
 
