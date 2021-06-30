@@ -1,7 +1,5 @@
 #pragma once
 
-#include <cu/cu_macro.h>
-
 // pxshared
 #include <foundation/PxAllocatorCallback.h>
 #include <foundation/PxErrorCallback.h>
@@ -57,7 +55,7 @@ public:
 }; // ErrorCallback
 
 
-class AssertHandler : public physx::PxAssertHandler
+class AssertHandler : public ::nv::cloth::PxAssertHandler
 {
 public:
     virtual void operator()(const char* exp, const char* file, int line, bool& ignore);
@@ -67,13 +65,19 @@ class NvCloth
 {
 public:
 
+    static NvCloth* Instance();
+
+private:
+    NvCloth();
+    ~NvCloth();
+private:
+    static NvCloth* m_instance;
+
 private:
 	Allocator*     m_allocator;
 	Allocator*     m_foundation_allocator;
 	ErrorCallback* m_error_callback;
 	AssertHandler* m_assert_handler;
-
-    CU_SINGLETON_DECLARATION(NvCloth);
 
 }; // NvCloth
 

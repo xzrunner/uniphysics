@@ -12,7 +12,14 @@ namespace cloth
 namespace nv
 {
 
-CU_SINGLETON_DEFINITION(NvCloth);
+NvCloth* NvCloth::m_instance = NULL;
+NvCloth* NvCloth::Instance()
+{
+	if (!m_instance) {
+		m_instance = new NvCloth();
+	}
+	return m_instance;
+}
 
 NvCloth::NvCloth()
 {
