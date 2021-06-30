@@ -19,7 +19,7 @@ public:
     Shape();
     virtual ~Shape();
 
-    virtual void InitBoxShape(const sm::vec3& half_extents) override;
+    void InitBoxShape(const sm::vec3& half_extents);
 
     auto& GetImpl() const { return m_impl; }
 
