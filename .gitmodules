@@ -1,0 +1,9 @@
+[submodule "external/box2d"]
+	path = external/box2d
+	url = git@github.com:erincatto/box2d.git
+[submodule "external/bullet3"]
+	path = external/bullet3
+	url = git@github.com:bulletphysics/bullet3.git
+[submodule "external/NvCloth"]
+	path = external/NvCloth
+	url = git@github.com:NVIDIAGameWorks/NvCloth.git
