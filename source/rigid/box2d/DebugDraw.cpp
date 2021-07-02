@@ -19,7 +19,7 @@ DebugDraw::DebugDraw()
 void DebugDraw::DrawPolygon(const b2Vec2* vertices, int vertexCount, const b2Color& color)
 {
 	auto _vertices = TransVertices(vertices, vertexCount);
-	m_pt.AddPolyline(_vertices.data(), _vertices.size(), TransColor(color), 1.0f);
+	m_pt.AddPolyline(_vertices.data(), _vertices.size(), TransColor(color), 2.0f);
 }
 
 void DebugDraw::DrawSolidPolygon(const b2Vec2* vertices, int vertexCount, const b2Color& color)
@@ -30,7 +30,7 @@ void DebugDraw::DrawSolidPolygon(const b2Vec2* vertices, int vertexCount, const 
 
 void DebugDraw::DrawCircle(const b2Vec2& center, float radius, const b2Color& color)
 {
-	m_pt.AddCircle(sm::vec2(center.x * SCALE_FACTOR, center.y * SCALE_FACTOR), radius * SCALE_FACTOR, TransColor(color), 1.0f, 16);
+	m_pt.AddCircle(sm::vec2(center.x * SCALE_FACTOR, center.y * SCALE_FACTOR), radius * SCALE_FACTOR, TransColor(color), 2.0f, 16);
 }
 
 void DebugDraw::DrawSolidCircle(const b2Vec2& center, float radius, const b2Vec2& axis, const b2Color& color)
@@ -43,7 +43,7 @@ void DebugDraw::DrawSegment(const b2Vec2& p1, const b2Vec2& p2, const b2Color& c
 	m_pt.AddLine(
 		sm::vec2(p1.x * SCALE_FACTOR, p1.y * SCALE_FACTOR),
 		sm::vec2(p2.x * SCALE_FACTOR, p2.y * SCALE_FACTOR),
-		TransColor(color), 1.0f
+		TransColor(color), 2.0f
 	);
 }
 
