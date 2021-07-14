@@ -4,8 +4,10 @@
 
 #include <memory>
 #include <vector>
+#include <string>
 
 class b2Body;
+class b2World;
 
 namespace up
 {
@@ -20,7 +22,8 @@ class Shape;
 class Body : public rigid::Body
 {
 public:
-    Body();
+    Body(const std::string& type);
+    virtual ~Body();
 
     virtual sm::vec3 GetPosition() const override;
 
@@ -32,12 +35,16 @@ public:
         m_fixtures.push_back(shape);
     }
 
-    void SetImpl(b2Body* impl);
+    void CreateBody(const std::shared_ptr<b2World>& world);
 
 private:
+    std::shared_ptr<b2World> m_world = nullptr;
+
     b2Body* m_impl = nullptr;
   
     std::vector<std::shared_ptr<Shape>> m_fixtures;
+
+    std::string m_type;
 
 }; // Body
 

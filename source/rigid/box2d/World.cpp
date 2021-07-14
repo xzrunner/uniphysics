@@ -16,21 +16,15 @@ World::World()
 {
 	b2Vec2 b2gravity;
 	b2gravity.Set(0.0f, -10.0f);
-	m_impl = std::make_unique<b2World>(b2gravity);
+	m_impl = std::make_shared<b2World>(b2gravity);
 }
 
 void World::AddBody(const std::shared_ptr<rigid::Body>& body)
 {
-	auto _body = std::static_pointer_cast<box2d::Body>(body);
+	auto b2_body = std::static_pointer_cast<box2d::Body>(body);
+	b2_body->CreateBody(m_impl);
 
-	b2BodyDef bd;
-	bd.type = b2_dynamicBody;
-
-	auto b2_body = m_impl->CreateBody(&bd);
-
-	_body->SetImpl(b2_body);
-
-	m_bodies.push_back(_body);
+	m_bodies.push_back(b2_body);
 }
 
 void World::StepSimulation(float dt)

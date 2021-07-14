@@ -36,7 +36,7 @@ public:
     void DebugDraw() const;
 
 private:
-    std::unique_ptr<b2World> m_impl = nullptr;
+    std::shared_ptr<b2World> m_impl = nullptr;
 
     std::vector<std::shared_ptr<Body>> m_bodies;
     
