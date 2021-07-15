@@ -4,6 +4,7 @@
 
 #include <box2d/b2_world.h>
 #include <box2d/b2_body.h>
+#include <box2d/b2_fixture.h>
 #include <box2d/b2_contact.h>
 
 namespace up
@@ -72,15 +73,35 @@ World::World()
 {
 	b2Vec2 b2gravity;
 	b2gravity.Set(0.0f, -10.0f);
-	m_impl = std::make_shared<b2World>(b2gravity);
+	m_impl = std::make_unique<b2World>(b2gravity);
+
 	m_contact_lsn = std::make_unique<ContactListener>(*this);
 	m_impl->SetContactListener(m_contact_lsn.get());
+}
+
+World::~World()
+{
+	for (auto& body : m_bodies) {
+		m_impl->DestroyBody(body->GetBody());
+	}
 }
 
 void World::AddBody(const std::shared_ptr<rigid::Body>& body)
 {
 	auto b2_body = std::static_pointer_cast<box2d::Body>(body);
-	b2_body->CreateBody(m_impl);
+
+	auto& type = b2_body->GetType();
+
+	b2BodyDef bd;
+	if (type == "static") {
+		bd.type = b2_staticBody;
+	} else if (type == "kinematic") {
+		bd.type = b2_kinematicBody;
+	} else if (type == "dynamic") {
+		bd.type = b2_dynamicBody;
+	}
+	auto _body = m_impl->CreateBody(&bd);
+	b2_body->CreateBody(_body);
 
 	m_bodies.push_back(b2_body);
 }

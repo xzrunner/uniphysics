@@ -24,6 +24,7 @@ class World : public rigid::World
 {
 public:
     World();
+    virtual ~World();
 
     virtual void AddBody(const std::shared_ptr<rigid::Body>& body) override;
     virtual void RemoveBody(const std::shared_ptr<rigid::Body>& body) override;
@@ -48,7 +49,7 @@ private:
     void PreSimulation();
 
 private:
-    std::shared_ptr<b2World> m_impl = nullptr;
+    std::unique_ptr<b2World> m_impl = nullptr;
 
     std::vector<std::shared_ptr<Body>> m_bodies;
     
