@@ -22,7 +22,7 @@ class Shape;
 class Body : public rigid::Body
 {
 public:
-    Body(const std::string& type);
+    Body(const std::string& type, int flag = -1);
 
     virtual sm::vec3 GetPosition() const override;
 
@@ -39,6 +39,7 @@ public:
     auto GetBody() const { return m_impl; }
 
     auto& GetType() const { return m_type; }
+    auto GetFlag() const { return m_flag; }
 
 private:
     b2Body* m_impl = nullptr;
@@ -46,6 +47,8 @@ private:
     std::vector<std::shared_ptr<Shape>> m_fixtures;
 
     std::string m_type;
+
+    int m_flag = -1;
 
 }; // Body
 

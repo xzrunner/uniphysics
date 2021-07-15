@@ -12,8 +12,9 @@ namespace rigid
 namespace box2d
 {
 
-Body::Body(const std::string& type)
+Body::Body(const std::string& type, int flag)
 	: m_type(type)
+	, m_flag(flag)
 {
 }
 
