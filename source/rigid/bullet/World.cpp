@@ -30,6 +30,10 @@ void World::AddBody(const std::shared_ptr<rigid::Body>& body)
     m_map_bt.insert({ bt_body, body });
 }
 
+void World::RemoveBody(const std::shared_ptr<rigid::Body>& body)
+{
+}
+
 void World::StepSimulation(float dt)
 {
     m_impl->stepSimulation(dt);

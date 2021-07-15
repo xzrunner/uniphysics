@@ -24,6 +24,7 @@ public:
     World();
 
     virtual void AddBody(const std::shared_ptr<rigid::Body>& body) override;
+    virtual void RemoveBody(const std::shared_ptr<rigid::Body>& body) override;
 
     virtual void StepSimulation(float dt) override;
 
@@ -36,12 +37,17 @@ public:
     void DebugDraw() const;
 
 private:
+    void PreSimulation();
+
+private:
     std::shared_ptr<b2World> m_impl = nullptr;
 
     std::vector<std::shared_ptr<Body>> m_bodies;
     
     int m_velocity_iter = 8;
     int m_position_iter = 3;
+
+    std::vector<std::shared_ptr<rigid::Body>> m_rm_list;
 
 }; // World
 

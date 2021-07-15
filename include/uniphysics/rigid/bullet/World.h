@@ -26,6 +26,7 @@ public:
     World();
 
     virtual void AddBody(const std::shared_ptr<rigid::Body>& body) override;
+    virtual void RemoveBody(const std::shared_ptr<rigid::Body>& body) override;
 
     virtual void StepSimulation(float dt) override;
 

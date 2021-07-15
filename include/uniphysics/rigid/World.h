@@ -20,6 +20,7 @@ public:
     virtual ~World() {}
 
     virtual void AddBody(const std::shared_ptr<Body>& body) = 0;
+    virtual void RemoveBody(const std::shared_ptr<Body>& body) = 0;
 
     virtual void StepSimulation(float dt) = 0;
 
