@@ -4,6 +4,7 @@
 
 #include <box2d/b2_world.h>
 #include <box2d/b2_body.h>
+#include <box2d/b2_contact.h>
 
 namespace up
 {
@@ -12,11 +13,68 @@ namespace rigid
 namespace box2d
 {
 
+static World::Callback CB;
+
+void World::RegisterCallback(const World::Callback& cb)
+{
+	CB = cb;
+}
+
+class ContactListener : public b2ContactListener
+{
+public:
+	ContactListener(const World& world) 
+		: m_world(world)
+	{
+	}
+
+	virtual void BeginContact(b2Contact* contact) override
+	{
+		auto a = FindBody(contact->GetFixtureA());
+		auto b = FindBody(contact->GetFixtureB());
+		if (a && b) {
+			CB.begin_contact(a, b);
+		}
+	}
+
+	virtual void EndContact(b2Contact* contact) override
+	{
+	}
+
+	virtual void PreSolve(b2Contact* contact, const b2Manifold* oldManifold) override
+	{
+
+	}
+
+	virtual void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse) override
+	{
+
+	}
+
+private:
+	std::shared_ptr<Body> FindBody(const b2Fixture* fixture) const
+	{
+		auto b = fixture->GetBody();
+		for (auto& body : m_world.m_bodies) {
+			if (body->GetBody() == b) {
+				return body;
+			}
+		}
+		return nullptr;
+	}
+
+private:
+	const World& m_world;
+
+}; // ContactListener
+
 World::World()
 {
 	b2Vec2 b2gravity;
 	b2gravity.Set(0.0f, -10.0f);
 	m_impl = std::make_shared<b2World>(b2gravity);
+	m_contact_lsn = std::make_unique<ContactListener>(*this);
+	m_impl->SetContactListener(m_contact_lsn.get());
 }
 
 void World::AddBody(const std::shared_ptr<rigid::Body>& body)

@@ -3,6 +3,7 @@
 #include "uniphysics/rigid/World.h"
 
 #include <vector>
+#include <functional>
 
 class b2World;
 
@@ -17,6 +18,7 @@ namespace box2d
 {
 
 class Body;
+class ContactListener;
 
 class World : public rigid::World
 {
@@ -36,6 +38,12 @@ public:
     void SetDebugDraw(rigid::DebugDraw& draw);
     void DebugDraw() const;
 
+    struct Callback
+    {
+        std::function<void(const std::shared_ptr<Body>&, const std::shared_ptr<Body>&)> begin_contact;
+    };
+    static void RegisterCallback(const Callback& cb);
+
 private:
     void PreSimulation();
 
@@ -47,7 +55,11 @@ private:
     int m_velocity_iter = 8;
     int m_position_iter = 3;
 
+    std::unique_ptr<ContactListener> m_contact_lsn = nullptr;
+
     std::vector<std::shared_ptr<rigid::Body>> m_rm_list;
+
+    friend class ContactListener;
 
 }; // World
 
