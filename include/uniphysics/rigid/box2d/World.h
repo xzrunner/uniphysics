@@ -18,6 +18,7 @@ namespace box2d
 {
 
 class Body;
+class Joint;
 class ContactListener;
 
 class World : public rigid::World
@@ -36,6 +37,9 @@ public:
 
     virtual void RemoveConstraint(const std::shared_ptr<rigid::Constraint>& cons) override;
 
+    void AddJoint(const std::shared_ptr<Joint>& joint);
+    void RemoveJoint(const std::shared_ptr<Joint>& joint);
+
     void SetDebugDraw(rigid::DebugDraw& draw);
     void DebugDraw() const;
 
@@ -49,16 +53,18 @@ private:
     void PreSimulation();
 
 private:
-    std::unique_ptr<b2World> m_impl = nullptr;
+    b2World* m_impl = nullptr;
 
-    std::vector<std::shared_ptr<Body>> m_bodies;
-    
+    std::vector<std::shared_ptr<Body>>  m_bodies;
+    std::vector<std::shared_ptr<Joint>> m_joints;
+
     int m_velocity_iter = 8;
     int m_position_iter = 3;
 
     std::unique_ptr<ContactListener> m_contact_lsn = nullptr;
 
-    std::vector<std::shared_ptr<rigid::Body>> m_rm_list;
+    std::vector<std::shared_ptr<rigid::Body>>  m_destroy_bodies;
+    std::vector<std::shared_ptr<Joint>> m_destroy_joints;
 
     friend class ContactListener;
 

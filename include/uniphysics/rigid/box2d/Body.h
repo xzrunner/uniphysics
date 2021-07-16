@@ -34,12 +34,11 @@ public:
         m_fixtures.push_back(shape);
     }
 
-    void CreateBody(b2Body* body);
-
-    auto GetBody() const { return m_impl; }
-
     auto& GetType() const { return m_type; }
     auto GetFlag() const { return m_flag; }
+
+    void SetImpl(b2Body* body);
+    auto GetImpl() const { return m_impl; }
 
 private:
     b2Body* m_impl = nullptr;

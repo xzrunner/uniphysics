@@ -42,6 +42,7 @@
     <ClInclude Include="..\..\..\include\uniphysics\rigid\box2d\Body.h" />
     <ClInclude Include="..\..\..\include\uniphysics\rigid\box2d\config.h" />
     <ClInclude Include="..\..\..\include\uniphysics\rigid\box2d\DebugDraw.h" />
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\box2d\Joint.h" />
     <ClInclude Include="..\..\..\include\uniphysics\rigid\box2d\Shape.h" />
     <ClInclude Include="..\..\..\include\uniphysics\rigid\box2d\World.h" />
     <ClInclude Include="..\..\..\include\uniphysics\rigid\bullet\Body.h" />
@@ -105,6 +106,7 @@
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)/rigid/box2d/</ObjectFileName>
     </ClCompile>
     <ClCompile Include="..\..\..\source\rigid\box2d\DebugDraw.cpp" />
+    <ClCompile Include="..\..\..\source\rigid\box2d\Joint.cpp" />
     <ClCompile Include="..\..\..\source\rigid\box2d\Shape.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)/rigid/box2d/</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)/rigid/box2d/</ObjectFileName>

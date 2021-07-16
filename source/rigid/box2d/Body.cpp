@@ -5,6 +5,8 @@
 #include <box2d/b2_fixture.h>
 #include <box2d/b2_world.h>
 
+#include <stdexcept>
+
 namespace up
 {
 namespace rigid
@@ -41,8 +43,13 @@ void Body::Activate()
 
 }
 
-void Body::CreateBody(b2Body* body)
+void Body::SetImpl(b2Body* body)
 {
+	assert(!m_impl);
+	if (m_impl) {
+		throw std::runtime_error("Body not empty.");
+	}
+
 	m_impl = body;
 
 	for (auto& shape : m_fixtures) 

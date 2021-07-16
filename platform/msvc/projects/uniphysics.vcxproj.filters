@@ -156,6 +156,9 @@
     <ClInclude Include="..\..\..\include\uniphysics\rigid\box2d\config.h">
       <Filter>0.rigid\box2d</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\uniphysics\rigid\box2d\Joint.h">
+      <Filter>0.rigid\box2d</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\cloth\nv\Solver.cpp">
@@ -205,6 +208,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\rigid\Factory.cpp">
       <Filter>0.rigid\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\rigid\box2d\Joint.cpp">
+      <Filter>0.rigid\box2d</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,11 +1,13 @@
 #include "uniphysics/rigid/box2d/World.h"
 #include "uniphysics/rigid/box2d/Body.h"
 #include "uniphysics/rigid/box2d/DebugDraw.h"
+#include "uniphysics/rigid/box2d/Joint.h"
 
 #include <box2d/b2_world.h>
 #include <box2d/b2_body.h>
 #include <box2d/b2_fixture.h>
 #include <box2d/b2_contact.h>
+#include <box2d/b2_prismatic_joint.h>
 
 namespace up
 {
@@ -57,7 +59,7 @@ private:
 	{
 		auto b = fixture->GetBody();
 		for (auto& body : m_world.m_bodies) {
-			if (body->GetBody() == b) {
+			if (body->GetImpl() == b) {
 				return body;
 			}
 		}
@@ -73,7 +75,7 @@ World::World()
 {
 	b2Vec2 b2gravity;
 	b2gravity.Set(0.0f, -10.0f);
-	m_impl = std::make_unique<b2World>(b2gravity);
+	m_impl = new b2World(b2gravity);
 
 	m_contact_lsn = std::make_unique<ContactListener>(*this);
 	m_impl->SetContactListener(m_contact_lsn.get());
@@ -81,9 +83,16 @@ World::World()
 
 World::~World()
 {
-	for (auto& body : m_bodies) {
-		m_impl->DestroyBody(body->GetBody());
+	assert(!m_impl->IsLocked());
+
+	for (auto& joint : m_joints) {
+		m_impl->DestroyJoint(joint->GetImpl());
 	}
+	for (auto& body : m_bodies) {
+		m_impl->DestroyBody(body->GetImpl());
+	}
+
+	delete m_impl;
 }
 
 void World::AddBody(const std::shared_ptr<rigid::Body>& body)
@@ -101,7 +110,7 @@ void World::AddBody(const std::shared_ptr<rigid::Body>& body)
 		bd.type = b2_dynamicBody;
 	}
 	auto _body = m_impl->CreateBody(&bd);
-	b2_body->CreateBody(_body);
+	b2_body->SetImpl(_body);
 
 	m_bodies.push_back(b2_body);
 }
@@ -109,7 +118,7 @@ void World::AddBody(const std::shared_ptr<rigid::Body>& body)
 void World::RemoveBody(const std::shared_ptr<rigid::Body>& body)
 {
 	if (m_impl->IsLocked()) {
-		m_rm_list.push_back(body);
+		m_destroy_bodies.push_back(body);
 		return;
 	}
 
@@ -118,7 +127,7 @@ void World::RemoveBody(const std::shared_ptr<rigid::Body>& body)
 		if (*itr == body) 
 		{
 			auto b2_body = std::static_pointer_cast<box2d::Body>(body);
-			m_impl->DestroyBody(b2_body->GetBody());
+			m_impl->DestroyBody(b2_body->GetImpl());
 			itr = m_bodies.erase(itr);
 			return;
 		} 
@@ -151,6 +160,59 @@ void World::RemoveConstraint(const std::shared_ptr<rigid::Constraint>& cons)
 
 }
 
+void World::AddJoint(const std::shared_ptr<Joint>& joint)
+{
+	switch (joint->GetType())
+	{
+	case JointType::Prismatic:
+	{
+		auto prismatic = std::static_pointer_cast<PrismaticJoint>(joint);
+
+		b2PrismaticJointDef pjd;
+
+		auto body_a = joint->GetBodyA()->GetImpl();
+		auto body_b = joint->GetBodyB()->GetImpl();
+		auto& anchor = prismatic->GetAnchor();
+		auto& axis = prismatic->GetAxis();
+		pjd.Initialize(body_a, body_b, { anchor.x, anchor.y }, { axis.x, axis.y });
+
+		pjd.motorSpeed = 0;
+		pjd.maxMotorForce = 10000.0f;
+		pjd.enableMotor = false;
+		pjd.lowerTranslation = -10.0f;
+		pjd.upperTranslation = 10.0f;
+		pjd.enableLimit = true;
+
+		joint->SetImpl(m_impl->CreateJoint(&pjd));
+
+		m_joints.push_back(joint);
+	}
+		break;
+	}
+}
+
+void World::RemoveJoint(const std::shared_ptr<Joint>& joint)
+{
+	if (m_impl->IsLocked()) {
+		m_destroy_joints.push_back(joint);
+		return;
+	}
+
+	for (auto itr = m_joints.begin(); itr != m_joints.end(); )
+	{
+		if (*itr == joint)
+		{
+			m_impl->DestroyJoint(joint->GetImpl());
+			itr = m_joints.erase(itr);
+			return;
+		}
+		else
+		{
+			++itr;
+		}
+	}
+}
+
 void World::SetDebugDraw(rigid::DebugDraw& draw)
 {
 	m_impl->SetDebugDraw(&static_cast<box2d::DebugDraw&>(draw));
@@ -163,14 +225,14 @@ void World::DebugDraw() const
 
 void World::PreSimulation()
 {
-	for (auto& rm : m_rm_list)
+	for (auto& body : m_destroy_bodies)
 	{
 		for (auto itr = m_bodies.begin(); itr != m_bodies.end(); )
 		{
-			if (*itr == rm)
+			if (*itr == body)
 			{
-				auto b2_body = std::static_pointer_cast<box2d::Body>(rm);
-				m_impl->DestroyBody(b2_body->GetBody());
+				auto b2_body = std::static_pointer_cast<box2d::Body>(body);
+				m_impl->DestroyBody(b2_body->GetImpl());
 				itr = m_bodies.erase(itr);
 				break;
 			}
@@ -180,7 +242,26 @@ void World::PreSimulation()
 			}
 		}
 	}
-	m_rm_list.clear();
+	m_destroy_bodies.clear();
+
+	for (auto& joint : m_destroy_joints)
+	{
+		for (auto itr = m_joints.begin(); itr != m_joints.end(); )
+		{
+			if (*itr == joint)
+			{
+				auto b2_joint = std::static_pointer_cast<box2d::Joint>(joint);
+				m_impl->DestroyJoint(b2_joint->GetImpl());
+				itr = m_joints.erase(itr);
+				break;
+			}
+			else
+			{
+				++itr;
+			}
+		}
+	}
+	m_destroy_bodies.clear();
 }
 
 }
