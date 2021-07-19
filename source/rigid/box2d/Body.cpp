@@ -60,8 +60,13 @@ void Body::SetImpl(b2Body* body)
 		}
 	
 		b2FixtureDef fd;
-		fd.density = 1.0f;
 		fd.shape = _shape;
+
+		fd.density = m_density;
+		fd.restitution = m_restitution;
+		fd.friction = m_friction;
+
+		m_impl->SetGravityScale(m_gravity);
 
 		m_impl->CreateFixture(&fd);
 	}
