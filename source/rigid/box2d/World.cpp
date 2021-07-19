@@ -35,23 +35,36 @@ public:
 	{
 		auto a = FindBody(contact->GetFixtureA());
 		auto b = FindBody(contact->GetFixtureB());
-		if (a && b) {
+		if (a && b && CB.begin_contact) {
 			CB.begin_contact(a, b);
 		}
 	}
 
 	virtual void EndContact(b2Contact* contact) override
 	{
+		auto a = FindBody(contact->GetFixtureA());
+		auto b = FindBody(contact->GetFixtureB());
+		if (a && b && CB.end_contact) {
+			CB.end_contact(a, b);
+		}
 	}
 
 	virtual void PreSolve(b2Contact* contact, const b2Manifold* oldManifold) override
 	{
-
+		auto a = FindBody(contact->GetFixtureA());
+		auto b = FindBody(contact->GetFixtureB());
+		if (a && b && CB.pre_solve) {
+			CB.pre_solve(a, b);
+		}
 	}
 
 	virtual void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse) override
 	{
-
+		auto a = FindBody(contact->GetFixtureA());
+		auto b = FindBody(contact->GetFixtureB());
+		if (a && b && CB.post_solve) {
+			CB.post_solve(a, b);
+		}
 	}
 
 private:

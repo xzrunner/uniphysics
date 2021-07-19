@@ -45,7 +45,10 @@ public:
 
     struct Callback
     {
-        std::function<void(const std::shared_ptr<Body>&, const std::shared_ptr<Body>&)> begin_contact;
+        std::function<void(const std::shared_ptr<Body>&, const std::shared_ptr<Body>&)> begin_contact = nullptr;
+        std::function<void(const std::shared_ptr<Body>&, const std::shared_ptr<Body>&)> end_contact   = nullptr;
+        std::function<void(const std::shared_ptr<Body>&, const std::shared_ptr<Body>&)> pre_solve     = nullptr;
+        std::function<void(const std::shared_ptr<Body>&, const std::shared_ptr<Body>&)> post_solve    = nullptr;
     };
     static void RegisterCallback(const Callback& cb);
 
