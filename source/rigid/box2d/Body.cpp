@@ -43,6 +43,22 @@ void Body::Activate()
 
 }
 
+void Body::SetLinearVelocity(const sm::vec2& velocity)
+{
+	m_impl->SetLinearVelocity({ velocity.x, velocity.y });
+}
+
+sm::vec2 Body::GetLinearVelocity() const
+{
+	auto& b2 = m_impl->GetLinearVelocity();
+	return { b2.x, b2.y };
+}
+
+void Body::SetTransform(const sm::vec2& pos, float angle)
+{
+	m_impl->SetTransform(b2Vec2(pos.x, pos.y), angle);
+}
+
 void Body::SetImpl(b2Body* body)
 {
 	assert(!m_impl);

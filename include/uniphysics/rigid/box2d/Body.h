@@ -43,6 +43,11 @@ public:
     void SetRestitution(float restitution) { m_restitution = restitution; }
     void SetFriction(float friction) { m_friction = friction; }
 
+    void SetLinearVelocity(const sm::vec2& velocity);
+    sm::vec2 GetLinearVelocity() const;
+
+    void SetTransform(const sm::vec2& pos, float angle);
+
     void SetImpl(b2Body* body);
     auto GetImpl() const { return m_impl; }
 
