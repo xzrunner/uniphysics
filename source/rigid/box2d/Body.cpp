@@ -88,6 +88,14 @@ void Body::SetImpl(b2Body* body)
 	}
 }
 
+void Body::DeleteImpl(b2World* world)
+{
+	if (m_impl) {
+		world->DestroyBody(m_impl);
+		m_impl = nullptr;
+	}
+}
+
 }
 }
 }

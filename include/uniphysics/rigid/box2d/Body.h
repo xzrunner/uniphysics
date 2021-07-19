@@ -50,6 +50,7 @@ public:
 
     void SetImpl(b2Body* body);
     auto GetImpl() const { return m_impl; }
+    void DeleteImpl(b2World* world);
 
 private:
     b2Body* m_impl = nullptr;

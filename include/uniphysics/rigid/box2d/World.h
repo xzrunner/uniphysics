@@ -55,6 +55,8 @@ public:
 private:
     void PreSimulation();
 
+    void RemoveBodyForce(const std::shared_ptr<rigid::Body>& body);
+
 private:
     b2World* m_impl = nullptr;
 

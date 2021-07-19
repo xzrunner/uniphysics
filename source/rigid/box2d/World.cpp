@@ -132,22 +132,8 @@ void World::RemoveBody(const std::shared_ptr<rigid::Body>& body)
 {
 	if (m_impl->IsLocked()) {
 		m_destroy_bodies.push_back(body);
-		return;
-	}
-
-	for (auto itr = m_bodies.begin(); itr != m_bodies.end(); )
-	{
-		if (*itr == body) 
-		{
-			auto b2_body = std::static_pointer_cast<box2d::Body>(body);
-			m_impl->DestroyBody(b2_body->GetImpl());
-			itr = m_bodies.erase(itr);
-			return;
-		} 
-		else 
-		{
-			++itr;
-		}
+	} else {
+		RemoveBodyForce(body);
 	}
 }
 
@@ -238,22 +224,8 @@ void World::DebugDraw() const
 
 void World::PreSimulation()
 {
-	for (auto& body : m_destroy_bodies)
-	{
-		for (auto itr = m_bodies.begin(); itr != m_bodies.end(); )
-		{
-			if (*itr == body)
-			{
-				auto b2_body = std::static_pointer_cast<box2d::Body>(body);
-				m_impl->DestroyBody(b2_body->GetImpl());
-				itr = m_bodies.erase(itr);
-				break;
-			}
-			else
-			{
-				++itr;
-			}
-		}
+	for (auto& body : m_destroy_bodies) {
+		RemoveBodyForce(body);
 	}
 	m_destroy_bodies.clear();
 
@@ -275,6 +247,24 @@ void World::PreSimulation()
 		}
 	}
 	m_destroy_bodies.clear();
+}
+
+void World::RemoveBodyForce(const std::shared_ptr<rigid::Body>& body)
+{
+	for (auto itr = m_bodies.begin(); itr != m_bodies.end(); )
+	{
+		if (*itr == body)
+		{
+			auto b2_body = std::static_pointer_cast<box2d::Body>(body);
+			b2_body->DeleteImpl(m_impl);
+			itr = m_bodies.erase(itr);
+			return;
+		}
+		else
+		{
+			++itr;
+		}
+	}
 }
 
 }
