@@ -43,6 +43,11 @@ public:
     void SetRestitution(float restitution) { m_restitution = restitution; }
     void SetFriction(float friction) { m_friction = friction; }
 
+    void ApplyForce(const sm::vec2& force);
+    void ApplyTorque(float torque);
+    void ApplyLinearImpulse(const sm::vec2& impulse);
+    void ApplyAngularImpulse(float impulse);
+
     void SetLinearVelocity(const sm::vec2& velocity);
     sm::vec2 GetLinearVelocity() const;
 

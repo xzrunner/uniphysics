@@ -43,6 +43,26 @@ void Body::Activate()
 
 }
 
+void Body::ApplyForce(const sm::vec2& force)
+{
+	m_impl->ApplyForceToCenter(b2Vec2(force.x, force.y), true);
+}
+
+void Body::ApplyTorque(float torque)
+{
+	m_impl->ApplyTorque(torque, true);
+}
+
+void Body::ApplyLinearImpulse(const sm::vec2& impulse)
+{
+	m_impl->ApplyLinearImpulseToCenter(b2Vec2(impulse.x, impulse.y), true);
+}
+
+void Body::ApplyAngularImpulse(float impulse)
+{
+	m_impl->ApplyAngularImpulse(impulse, true);
+}
+
 void Body::SetLinearVelocity(const sm::vec2& velocity)
 {
 	m_impl->SetLinearVelocity({ velocity.x, velocity.y });
