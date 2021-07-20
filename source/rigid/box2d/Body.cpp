@@ -118,12 +118,12 @@ void Body::DeleteImpl(b2World* world)
 
 float Body::GetMass() const
 {
-	return m_impl->GetMass();
+	return m_impl ? m_impl->GetMass() : 0.0f;
 }
 
 float Body::GetAngle() const
 {
-	return m_impl->GetAngle();
+	return m_impl ? m_impl->GetAngle() : 0.0f;
 }
 
 }
