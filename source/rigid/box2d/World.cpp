@@ -216,8 +216,8 @@ void World::AddJoint(const std::shared_ptr<Joint>& joint)
 		pjd.motorSpeed = 0;
 		pjd.maxMotorForce = 10000.0f;
 		pjd.enableMotor = false;
-		pjd.lowerTranslation = -10.0f;
-		pjd.upperTranslation = 10.0f;
+		pjd.lowerTranslation = prismatic->GetLower();
+		pjd.upperTranslation = prismatic->GetUpper();
 		pjd.enableLimit = true;
 
 		joint->SetImpl(m_impl->CreateJoint(&pjd));

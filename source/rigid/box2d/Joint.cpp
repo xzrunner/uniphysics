@@ -40,10 +40,12 @@ void Joint::DeleteImpl(b2World* world)
 }
 
 PrismaticJoint::PrismaticJoint(const std::shared_ptr<Body>& body_a, const std::shared_ptr<Body>& body_b,
-	                           const sm::vec2& anchor, const sm::vec2& axis)
+	                           const sm::vec2& anchor, const sm::vec2& axis, float lower, float upper)
 	: Joint(JointType::Prismatic, body_a, body_b)
 	, m_anchor(anchor)
 	, m_axis(axis)
+	, m_lower(lower)
+	, m_upper(upper)
 {
 }
 

@@ -62,14 +62,20 @@ class PrismaticJoint : public Joint
 {
 public:
 	PrismaticJoint(const std::shared_ptr<Body>& body_a, const std::shared_ptr<Body>& body_b,
-		const sm::vec2& anchor, const sm::vec2& axis);
+		const sm::vec2& anchor, const sm::vec2& axis, float lower, float upper);
 
 	auto& GetAnchor() const { return m_anchor; }
 	auto& GetAxis() const { return m_axis; }
 
+	auto GetLower() const { return m_lower; }
+	auto GetUpper() const { return m_upper; }
+
 private:
 	sm::vec2 m_anchor;
 	sm::vec2 m_axis;
+
+	float m_lower;
+	float m_upper;
 
 }; // PrismaticJoint
 
