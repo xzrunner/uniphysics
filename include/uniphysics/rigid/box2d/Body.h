@@ -57,6 +57,9 @@ public:
     auto GetImpl() const { return m_impl; }
     void DeleteImpl(b2World* world);
 
+    float GetMass() const;
+    float GetAngle() const;
+
 private:
     b2Body* m_impl = nullptr;
   
