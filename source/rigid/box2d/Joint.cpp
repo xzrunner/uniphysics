@@ -2,6 +2,7 @@
 #include "uniphysics/rigid/box2d/Body.h"
 #include "uniphysics/rigid/box2d/config.h"
 
+#include <box2d/b2_world.h>
 #include <box2d/b2_mouse_joint.h>
 
 #include <stdexcept>
@@ -28,6 +29,14 @@ void Joint::SetImpl(b2Joint* joint)
 	}
 
 	m_impl = joint;
+}
+
+void Joint::DeleteImpl(b2World* world)
+{
+	if (m_impl) {
+		world->DestroyJoint(m_impl);
+		m_impl = nullptr;
+	}
 }
 
 PrismaticJoint::PrismaticJoint(const std::shared_ptr<Body>& body_a, const std::shared_ptr<Body>& body_b,

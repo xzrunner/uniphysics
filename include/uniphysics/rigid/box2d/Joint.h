@@ -4,6 +4,7 @@
 
 #include <memory>
 
+class b2World;
 class b2Joint;
 
 namespace up
@@ -45,6 +46,7 @@ public:
 
 	void SetImpl(b2Joint* joint);
 	auto GetImpl() const { return m_impl; }
+	void DeleteImpl(b2World* world);
 
 private:
 	JointType m_type = JointType::Unknown;

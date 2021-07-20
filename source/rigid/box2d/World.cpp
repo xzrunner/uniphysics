@@ -252,21 +252,8 @@ void World::RemoveJoint(const std::shared_ptr<Joint>& joint)
 {
 	if (m_impl->IsLocked()) {
 		m_destroy_joints.push_back(joint);
-		return;
-	}
-
-	for (auto itr = m_joints.begin(); itr != m_joints.end(); )
-	{
-		if (*itr == joint)
-		{
-			m_impl->DestroyJoint(joint->GetImpl());
-			itr = m_joints.erase(itr);
-			return;
-		}
-		else
-		{
-			++itr;
-		}
+	} else {
+		RemoveJointForce(joint);
 	}
 }
 
@@ -316,22 +303,8 @@ void World::PreSimulation()
 	}
 	m_destroy_bodies.clear();
 
-	for (auto& joint : m_destroy_joints)
-	{
-		for (auto itr = m_joints.begin(); itr != m_joints.end(); )
-		{
-			if (*itr == joint)
-			{
-				auto b2_joint = std::static_pointer_cast<box2d::Joint>(joint);
-				m_impl->DestroyJoint(b2_joint->GetImpl());
-				itr = m_joints.erase(itr);
-				break;
-			}
-			else
-			{
-				++itr;
-			}
-		}
+	for (auto& joint : m_destroy_joints) {
+		RemoveJointForce(joint);
 	}
 	m_destroy_bodies.clear();
 }
@@ -345,6 +318,23 @@ void World::RemoveBodyForce(const std::shared_ptr<rigid::Body>& body)
 			auto b2_body = std::static_pointer_cast<box2d::Body>(body);
 			b2_body->DeleteImpl(m_impl);
 			itr = m_bodies.erase(itr);
+			return;
+		}
+		else
+		{
+			++itr;
+		}
+	}
+}
+
+void World::RemoveJointForce(const std::shared_ptr<Joint>& joint)
+{
+	for (auto itr = m_joints.begin(); itr != m_joints.end(); )
+	{
+		if (*itr == joint)
+		{
+			joint->DeleteImpl(m_impl);
+			itr = m_joints.erase(itr);
 			return;
 		}
 		else
