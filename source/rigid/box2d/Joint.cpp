@@ -1,5 +1,8 @@
 #include "uniphysics/rigid/box2d/Joint.h"
 #include "uniphysics/rigid/box2d/Body.h"
+#include "uniphysics/rigid/box2d/config.h"
+
+#include <box2d/b2_mouse_joint.h>
 
 #include <stdexcept>
 
@@ -33,6 +36,23 @@ PrismaticJoint::PrismaticJoint(const std::shared_ptr<Body>& body_a, const std::s
 	, m_anchor(anchor)
 	, m_axis(axis)
 {
+}
+
+MouseJoint::MouseJoint(const std::shared_ptr<Body>& body_a, const std::shared_ptr<Body>& body_b,
+	                   const sm::vec2& target, float max_force)
+	: Joint(JointType::Mouse, body_a, body_b)
+	, m_target(target / SCALE_FACTOR)
+	, m_max_force(max_force)
+{
+}
+
+void MouseJoint::SetTarget(const sm::vec2& target)
+{
+	auto impl = GetImpl();
+	if (!impl) {
+		return;
+	}
+	static_cast<b2MouseJoint*>(impl)->SetTarget({ target.x / SCALE_FACTOR, target.y / SCALE_FACTOR });
 }
 
 }

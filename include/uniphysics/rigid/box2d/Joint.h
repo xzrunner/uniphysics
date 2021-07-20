@@ -71,6 +71,23 @@ private:
 
 }; // PrismaticJoint
 
+class MouseJoint : public Joint
+{
+public:
+	MouseJoint(const std::shared_ptr<Body>& body_a, const std::shared_ptr<Body>& body_b,
+		const sm::vec2& target, float max_force);
+
+	auto& GetTarget() const { return m_target; }
+	auto& GetMaxForce() const { return m_max_force; }
+
+	void SetTarget(const sm::vec2& target);
+
+private:
+	sm::vec2 m_target;
+	float m_max_force;
+
+}; // MouseJoint
+
 }
 }
 }

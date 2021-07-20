@@ -43,6 +43,8 @@ public:
     void SetDebugDraw(rigid::DebugDraw& draw);
     void DebugDraw() const;
 
+    std::shared_ptr<Body> QueryByPos(const sm::vec2& pos) const;
+
     struct Callback
     {
         std::function<void(const std::shared_ptr<Body>&, const std::shared_ptr<Body>&)> begin_contact = nullptr;

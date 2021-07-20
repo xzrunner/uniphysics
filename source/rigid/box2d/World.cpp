@@ -2,12 +2,50 @@
 #include "uniphysics/rigid/box2d/Body.h"
 #include "uniphysics/rigid/box2d/DebugDraw.h"
 #include "uniphysics/rigid/box2d/Joint.h"
+#include "uniphysics/rigid/box2d/config.h"
 
 #include <box2d/b2_world.h>
 #include <box2d/b2_body.h>
 #include <box2d/b2_fixture.h>
 #include <box2d/b2_contact.h>
 #include <box2d/b2_prismatic_joint.h>
+#include <box2d/b2_mouse_joint.h>
+
+namespace
+{
+
+class QueryCallback : public b2QueryCallback
+{
+public:
+	QueryCallback(const b2Vec2& point) 
+		: m_point(point) {}
+
+	bool ReportFixture(b2Fixture* fixture)
+	{
+		b2Body* body = fixture->GetBody();
+		if (body->GetType() == b2_dynamicBody)
+		{
+			bool inside = fixture->TestPoint(m_point);
+			if (inside)
+			{
+				m_fixture = fixture;
+
+				// We are done, terminate the query.
+				return false;
+			}
+		}
+
+		// Continue the query.
+		return true;
+	}
+
+public:
+	b2Vec2 m_point;
+	b2Fixture* m_fixture = NULL;
+
+}; // QueryCallback
+
+}
 
 namespace up
 {
@@ -187,6 +225,26 @@ void World::AddJoint(const std::shared_ptr<Joint>& joint)
 		m_joints.push_back(joint);
 	}
 		break;
+	case JointType::Mouse:
+	{
+		auto mouse = std::static_pointer_cast<MouseJoint>(joint);
+
+		b2MouseJointDef mjd;
+
+		mjd.bodyA = joint->GetBodyA()->GetImpl();
+		mjd.bodyB = joint->GetBodyB()->GetImpl();
+		mjd.target = b2Vec2(mouse->GetTarget().x, mouse->GetTarget().y);
+		mjd.maxForce = mouse->GetMaxForce();
+
+		float frequencyHz = 5.0f;
+		float dampingRatio = 0.7f;
+		b2LinearStiffness(mjd.stiffness, mjd.damping, frequencyHz, dampingRatio, mjd.bodyA, mjd.bodyB);
+
+		joint->SetImpl(m_impl->CreateJoint(&mjd));
+
+		m_joints.push_back(joint);
+	}
+		break;
 	}
 }
 
@@ -220,6 +278,35 @@ void World::SetDebugDraw(rigid::DebugDraw& draw)
 void World::DebugDraw() const
 {
 	m_impl->DebugDraw();
+}
+
+std::shared_ptr<Body> World::QueryByPos(const sm::vec2& pos) const
+{
+	const b2Vec2 b2Pos(pos.x / SCALE_FACTOR, pos.y / SCALE_FACTOR);
+
+	// Make a small box.
+	b2AABB aabb;
+	b2Vec2 d;
+	d.Set(0.001f, 0.001f);
+	aabb.lowerBound = b2Pos - d;
+	aabb.upperBound = b2Pos + d;
+
+	// Query the world for overlapping shapes.
+	QueryCallback callback(b2Pos);
+	m_impl->QueryAABB(&callback, aabb);
+
+	if (!callback.m_fixture) {
+		return nullptr;
+	}
+
+	auto b = callback.m_fixture->GetBody();
+	for (auto body : m_bodies) {
+		if (body->GetImpl() == b) {
+			return body;
+		}
+	}
+
+	return nullptr;
 }
 
 void World::PreSimulation()
