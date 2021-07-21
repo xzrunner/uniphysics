@@ -10,6 +10,7 @@
 #include <box2d/b2_contact.h>
 #include <box2d/b2_prismatic_joint.h>
 #include <box2d/b2_mouse_joint.h>
+#include <box2d/b2_wheel_joint.h>
 
 namespace
 {
@@ -205,22 +206,21 @@ void World::AddJoint(const std::shared_ptr<Joint>& joint)
 	{
 		auto prismatic = std::static_pointer_cast<PrismaticJoint>(joint);
 
-		b2PrismaticJointDef pjd;
+		b2PrismaticJointDef jd;
 
 		auto body_a = joint->GetBodyA()->GetImpl();
 		auto body_b = joint->GetBodyB()->GetImpl();
 		auto& anchor = prismatic->GetAnchor();
 		auto& axis = prismatic->GetAxis();
-		pjd.Initialize(body_a, body_b, { anchor.x, anchor.y }, { axis.x, axis.y });
+		jd.Initialize(body_a, body_b, { anchor.x, anchor.y }, { axis.x, axis.y });
 
-		pjd.motorSpeed = 0;
-		pjd.maxMotorForce = 10000.0f;
-		pjd.enableMotor = false;
-		pjd.lowerTranslation = prismatic->GetLower();
-		pjd.upperTranslation = prismatic->GetUpper();
-		pjd.enableLimit = true;
+		jd.motorSpeed = 0;
+		jd.maxMotorForce = 10000.0f;
+		jd.enableMotor = false;
+		prismatic->GetTranslateRegion(jd.lowerTranslation, jd.upperTranslation);
+		jd.enableLimit = true;
 
-		joint->SetImpl(m_impl->CreateJoint(&pjd));
+		joint->SetImpl(m_impl->CreateJoint(&jd));
 
 		m_joints.push_back(joint);
 	}
@@ -229,18 +229,39 @@ void World::AddJoint(const std::shared_ptr<Joint>& joint)
 	{
 		auto mouse = std::static_pointer_cast<MouseJoint>(joint);
 
-		b2MouseJointDef mjd;
+		b2MouseJointDef jd;
 
-		mjd.bodyA = joint->GetBodyA()->GetImpl();
-		mjd.bodyB = joint->GetBodyB()->GetImpl();
-		mjd.target = b2Vec2(mouse->GetTarget().x, mouse->GetTarget().y);
-		mjd.maxForce = mouse->GetMaxForce();
+		jd.bodyA = joint->GetBodyA()->GetImpl();
+		jd.bodyB = joint->GetBodyB()->GetImpl();
+		jd.target = b2Vec2(mouse->GetTarget().x, mouse->GetTarget().y);
+		jd.maxForce = mouse->GetMaxForce();
 
 		float frequencyHz = 5.0f;
 		float dampingRatio = 0.7f;
-		b2LinearStiffness(mjd.stiffness, mjd.damping, frequencyHz, dampingRatio, mjd.bodyA, mjd.bodyB);
+		b2LinearStiffness(jd.stiffness, jd.damping, frequencyHz, dampingRatio, jd.bodyA, jd.bodyB);
 
-		joint->SetImpl(m_impl->CreateJoint(&mjd));
+		joint->SetImpl(m_impl->CreateJoint(&jd));
+
+		m_joints.push_back(joint);
+	}
+		break;
+	case JointType::Wheel:
+	{
+		auto wheel = std::static_pointer_cast<WheelJoint>(joint);
+
+		b2WheelJointDef jd;
+
+		auto body_a = joint->GetBodyA()->GetImpl();
+		auto body_b = joint->GetBodyB()->GetImpl();
+		auto& anchor = wheel->GetAnchor();
+		auto& axis = wheel->GetAxis();
+		jd.Initialize(body_a, body_b, { anchor.x, anchor.y }, { axis.x, axis.y });
+
+		wheel->GetTranslateLimit(jd.enableLimit, jd.lowerTranslation, jd.upperTranslation);
+		wheel->GetMotor(jd.enableMotor, jd.maxMotorTorque, jd.motorSpeed);
+		wheel->GetSuspension(jd.stiffness, jd.damping);
+
+		joint->SetImpl(m_impl->CreateJoint(&jd));
 
 		m_joints.push_back(joint);
 	}

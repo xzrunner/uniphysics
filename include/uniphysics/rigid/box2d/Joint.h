@@ -62,20 +62,20 @@ class PrismaticJoint : public Joint
 {
 public:
 	PrismaticJoint(const std::shared_ptr<Body>& body_a, const std::shared_ptr<Body>& body_b,
-		const sm::vec2& anchor, const sm::vec2& axis, float lower, float upper);
+		const sm::vec2& anchor, const sm::vec2& axis);
 
 	auto& GetAnchor() const { return m_anchor; }
 	auto& GetAxis() const { return m_axis; }
 
-	auto GetLower() const { return m_lower; }
-	auto GetUpper() const { return m_upper; }
+	void SetTranslateRegion(float lower, float upper) { m_lower = lower; m_upper = upper; }
+	void GetTranslateRegion(float& lower, float& upper) { lower = m_lower; upper = m_upper; }
 
 private:
 	sm::vec2 m_anchor;
 	sm::vec2 m_axis;
 
-	float m_lower;
-	float m_upper;
+	float m_lower = 0;
+	float m_upper = 0;
 
 }; // PrismaticJoint
 
@@ -95,6 +95,68 @@ private:
 	float m_max_force;
 
 }; // MouseJoint
+
+class WheelJoint : public Joint
+{
+public:
+	WheelJoint(const std::shared_ptr<Body>& body_a, const std::shared_ptr<Body>& body_b,
+		const sm::vec2& anchor, const sm::vec2& axis);
+
+	auto& GetAnchor() const { return m_anchor; }
+	auto& GetAxis() const { return m_axis; }
+
+	void SetTranslateLimit(bool enable_limit, float lower, float upper) {
+		m_enable_limit = enable_limit;
+		m_translate_lower = lower;
+		m_translate_upper = upper;
+	}
+	void GetTranslateLimit(bool& enable_limit, float& lower, float& upper) {
+		enable_limit = m_enable_limit;
+		lower = m_translate_lower;
+		upper = m_translate_upper;
+	}
+
+	void SetMotor(bool enable_motor, float max_torque, float speed) {
+		m_enable_motor = enable_motor;
+		m_max_motor_torque = max_torque;
+		m_motor_speed = speed;
+	}
+	void GetMotor(bool& enable_motor, float& max_torque, float& speed) {
+		enable_motor = m_enable_motor;
+		max_torque = m_max_motor_torque;
+		speed = m_motor_speed;
+	}
+
+	void SetSuspension(float stiffness, float damping) {
+		m_stiffness = stiffness;
+		m_damping = damping;
+	}
+	void GetSuspension(float& stiffness, float& damping) {
+		stiffness = m_stiffness;
+		damping = m_damping;
+	}
+
+	void SetMotorSpeed(float speed);
+
+private:
+	sm::vec2 m_anchor;
+	sm::vec2 m_axis;
+
+	// translate
+	bool m_enable_limit = false;
+	float m_translate_lower = 0;
+	float m_translate_upper = 0;
+
+	// motor
+	bool m_enable_motor = false;
+	float m_max_motor_torque = 0;
+	float m_motor_speed = 0;
+
+	// suspension
+	float m_stiffness = 0;
+	float m_damping = 0;
+
+}; // WheelJoint
 
 }
 }

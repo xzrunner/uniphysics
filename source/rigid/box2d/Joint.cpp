@@ -4,6 +4,7 @@
 
 #include <box2d/b2_world.h>
 #include <box2d/b2_mouse_joint.h>
+#include <box2d/b2_wheel_joint.h>
 
 #include <stdexcept>
 
@@ -40,12 +41,10 @@ void Joint::DeleteImpl(b2World* world)
 }
 
 PrismaticJoint::PrismaticJoint(const std::shared_ptr<Body>& body_a, const std::shared_ptr<Body>& body_b,
-	                           const sm::vec2& anchor, const sm::vec2& axis, float lower, float upper)
+	                           const sm::vec2& anchor, const sm::vec2& axis)
 	: Joint(JointType::Prismatic, body_a, body_b)
 	, m_anchor(anchor)
 	, m_axis(axis)
-	, m_lower(lower)
-	, m_upper(upper)
 {
 }
 
@@ -60,10 +59,25 @@ MouseJoint::MouseJoint(const std::shared_ptr<Body>& body_a, const std::shared_pt
 void MouseJoint::SetTarget(const sm::vec2& target)
 {
 	auto impl = GetImpl();
-	if (!impl) {
-		return;
+	if (impl) {
+		static_cast<b2MouseJoint*>(impl)->SetTarget({ target.x / SCALE_FACTOR, target.y / SCALE_FACTOR });
 	}
-	static_cast<b2MouseJoint*>(impl)->SetTarget({ target.x / SCALE_FACTOR, target.y / SCALE_FACTOR });
+}
+
+WheelJoint::WheelJoint(const std::shared_ptr<Body>& body_a, const std::shared_ptr<Body>& body_b,
+	                   const sm::vec2& anchor, const sm::vec2& axis)
+	: Joint(JointType::Wheel, body_a, body_b)
+	, m_anchor(anchor)
+	, m_axis(axis)
+{
+}
+
+void WheelJoint::SetMotorSpeed(float speed)
+{
+	auto impl = GetImpl();
+	if (impl) {
+		static_cast<b2WheelJoint*>(impl)->SetMotorSpeed(speed);
+	}
 }
 
 }
