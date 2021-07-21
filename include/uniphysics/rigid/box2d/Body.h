@@ -75,6 +75,9 @@ private:
 
     int m_flag = -1;
 
+    sm::vec2 m_pos = sm::vec2(0, 0);
+    float    m_angle = 0;
+
 }; // Body
 
 }

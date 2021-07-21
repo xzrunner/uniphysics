@@ -76,7 +76,12 @@ sm::vec2 Body::GetLinearVelocity() const
 
 void Body::SetTransform(const sm::vec2& pos, float angle)
 {
-	m_impl->SetTransform(b2Vec2(pos.x, pos.y), angle);
+	if (m_impl) {
+		m_impl->SetTransform(b2Vec2(pos.x, pos.y), angle);
+	} else {
+		m_pos = pos;
+		m_angle = angle;
+	}
 }
 
 void Body::SetImpl(b2Body* body)
@@ -106,6 +111,8 @@ void Body::SetImpl(b2Body* body)
 
 		m_impl->CreateFixture(&fd);
 	}
+
+	m_impl->SetTransform(b2Vec2(m_pos.x, m_pos.y), m_angle);
 }
 
 void Body::DeleteImpl(b2World* world)
