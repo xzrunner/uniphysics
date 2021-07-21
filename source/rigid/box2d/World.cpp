@@ -8,6 +8,7 @@
 #include <box2d/b2_body.h>
 #include <box2d/b2_fixture.h>
 #include <box2d/b2_contact.h>
+#include <box2d/b2_revolute_joint.h>
 #include <box2d/b2_prismatic_joint.h>
 #include <box2d/b2_mouse_joint.h>
 #include <box2d/b2_wheel_joint.h>
@@ -202,6 +203,25 @@ void World::AddJoint(const std::shared_ptr<Joint>& joint)
 {
 	switch (joint->GetType())
 	{
+	case JointType::Revolute:
+	{
+		auto revolute = std::static_pointer_cast<RevoluteJoint>(joint);
+
+		b2RevoluteJointDef jd;
+
+		auto body_a = joint->GetBodyA()->GetImpl();
+		auto body_b = joint->GetBodyB()->GetImpl();
+		auto& anchor = revolute->GetAnchor();
+		jd.Initialize(body_a, body_b, { anchor.x, anchor.y });
+
+		revolute->GetAngleLimit(jd.enableLimit, jd.lowerAngle, jd.upperAngle);
+		revolute->GetMotor(jd.enableMotor, jd.maxMotorTorque, jd.motorSpeed);
+
+		joint->SetImpl(m_impl->CreateJoint(&jd));
+
+		m_joints.push_back(joint);
+	}
+		break;
 	case JointType::Prismatic:
 	{
 		auto prismatic = std::static_pointer_cast<PrismaticJoint>(joint);

@@ -58,6 +58,51 @@ private:
 
 }; // Joint
 
+class RevoluteJoint : public Joint
+{
+public:
+	RevoluteJoint(const std::shared_ptr<Body>& body_a, const std::shared_ptr<Body>& body_b,
+		const sm::vec2& anchor);
+
+	auto& GetAnchor() const { return m_anchor; }
+
+	void SetAngleLimit(bool enable_limit, float lower, float upper) {
+		m_enable_limit = enable_limit;
+		m_angle_lower = lower;
+		m_angle_upper = upper;
+	}
+	void GetAngleLimit(bool& enable_limit, float& lower, float& upper) {
+		enable_limit = m_enable_limit;
+		lower = m_angle_lower;
+		upper = m_angle_upper;
+	}
+
+	void SetMotor(bool enable_motor, float max_torque, float speed) {
+		m_enable_motor = enable_motor;
+		m_max_motor_torque = max_torque;
+		m_motor_speed = speed;
+	}
+	void GetMotor(bool& enable_motor, float& max_torque, float& speed) {
+		enable_motor = m_enable_motor;
+		max_torque = m_max_motor_torque;
+		speed = m_motor_speed;
+	}
+
+private:
+	sm::vec2 m_anchor;
+
+	// rotate
+	bool m_enable_limit = false;
+	float m_angle_lower = 0;
+	float m_angle_upper = 0;
+
+	// motor
+	bool m_enable_motor = false;
+	float m_max_motor_torque = 0;
+	float m_motor_speed = 0;
+
+}; // RevoluteJoint
+
 class PrismaticJoint : public Joint
 {
 public:

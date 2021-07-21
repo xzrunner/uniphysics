@@ -40,6 +40,13 @@ void Joint::DeleteImpl(b2World* world)
 	}
 }
 
+RevoluteJoint::RevoluteJoint(const std::shared_ptr<Body>& body_a, const std::shared_ptr<Body>& body_b,
+	                         const sm::vec2& anchor)
+	: Joint(JointType::Revolute, body_a, body_b)
+	, m_anchor(anchor)
+{
+}
+
 PrismaticJoint::PrismaticJoint(const std::shared_ptr<Body>& body_a, const std::shared_ptr<Body>& body_b,
 	                           const sm::vec2& anchor, const sm::vec2& axis)
 	: Joint(JointType::Prismatic, body_a, body_b)
