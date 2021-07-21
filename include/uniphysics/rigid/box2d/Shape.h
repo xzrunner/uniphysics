@@ -26,6 +26,7 @@ public:
     void InitRectShape(const sm::rect& rect);
     void InitCircleShape(const sm::vec2& center, float radius);
     void InitChainShape(const std::vector<sm::vec2>& vertices, bool is_closed);
+    void InitPolygonShape(const std::vector<sm::vec2>& vertices);
 
     b2Shape* GetImpl() const { return m_impl.get(); }
 

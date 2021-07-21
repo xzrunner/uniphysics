@@ -71,6 +71,22 @@ void Shape::InitChainShape(const std::vector<sm::vec2>& vertices, bool is_closed
 	m_impl = std::move(shape);
 }
 
+void Shape::InitPolygonShape(const std::vector<sm::vec2>& vertices)
+{
+	const size_t size = vertices.size();
+	std::vector<b2Vec2> dst(size);
+	for (size_t i = 0; i < size; ++i)
+	{
+		dst[i].x = vertices[i].x / SCALE_FACTOR;
+		dst[i].y = vertices[i].y / SCALE_FACTOR;
+	}
+
+	auto shape = std::make_unique<b2PolygonShape>();
+	shape->Set(dst.data(), dst.size());
+
+	m_impl = std::move(shape);
+}
+
 }
 }
 }
