@@ -235,11 +235,8 @@ void World::AddJoint(const std::shared_ptr<Joint>& joint)
 		auto& axis = prismatic->GetAxis();
 		jd.Initialize(body_a, body_b, { anchor.x, anchor.y }, { axis.x, axis.y });
 
-		jd.motorSpeed = 0;
-		jd.maxMotorForce = 10000.0f;
-		jd.enableMotor = false;
-		prismatic->GetTranslateRegion(jd.lowerTranslation, jd.upperTranslation);
-		jd.enableLimit = true;
+		prismatic->GetTranslateLimit(jd.enableLimit, jd.lowerTranslation, jd.upperTranslation);
+		prismatic->GetMotor(jd.enableMotor, jd.maxMotorForce, jd.motorSpeed);
 
 		joint->SetImpl(m_impl->CreateJoint(&jd));
 

@@ -112,15 +112,41 @@ public:
 	auto& GetAnchor() const { return m_anchor; }
 	auto& GetAxis() const { return m_axis; }
 
-	void SetTranslateRegion(float lower, float upper) { m_lower = lower; m_upper = upper; }
-	void GetTranslateRegion(float& lower, float& upper) { lower = m_lower; upper = m_upper; }
+	void SetTranslateLimit(bool enable_limit, float lower, float upper) {
+		m_enable_limit = enable_limit;
+		m_translate_lower = lower;
+		m_translate_upper = upper;
+	}
+	void GetTranslateLimit(bool& enable_limit, float& lower, float& upper) {
+		enable_limit = m_enable_limit;
+		lower = m_translate_lower;
+		upper = m_translate_upper;
+	}
+
+	void SetMotor(bool enable_motor, float max_force, float speed) {
+		m_enable_motor = enable_motor;
+		m_max_motor_force = max_force;
+		m_motor_speed = speed;
+	}
+	void GetMotor(bool& enable_motor, float& max_force, float& speed) {
+		enable_motor = m_enable_motor;
+		max_force = m_max_motor_force;
+		speed = m_motor_speed;
+	}
 
 private:
 	sm::vec2 m_anchor;
 	sm::vec2 m_axis;
 
-	float m_lower = 0;
-	float m_upper = 0;
+	// translate
+	bool m_enable_limit = false;
+	float m_translate_lower = 0;
+	float m_translate_upper = 0;
+
+	// motor
+	bool m_enable_motor = false;
+	float m_max_motor_force = 0;
+	float m_motor_speed = 0;
 
 }; // PrismaticJoint
 
