@@ -10,6 +10,7 @@
 #include <box2d/b2_contact.h>
 #include <box2d/b2_revolute_joint.h>
 #include <box2d/b2_prismatic_joint.h>
+#include <box2d/b2_distance_joint.h>
 #include <box2d/b2_mouse_joint.h>
 #include <box2d/b2_wheel_joint.h>
 
@@ -239,6 +240,29 @@ void World::AddJoint(const std::shared_ptr<Joint>& joint)
 		jd.enableMotor = false;
 		prismatic->GetTranslateRegion(jd.lowerTranslation, jd.upperTranslation);
 		jd.enableLimit = true;
+
+		joint->SetImpl(m_impl->CreateJoint(&jd));
+
+		m_joints.push_back(joint);
+	}
+		break;
+	case JointType::Distance:
+	{
+		auto distance = std::static_pointer_cast<DistanceJoint>(joint);
+
+		b2DistanceJointDef jd;
+
+		auto body_a = joint->GetBodyA()->GetImpl();
+		auto body_b = joint->GetBodyB()->GetImpl();
+		auto& anchor_a = distance->GetAnchorA();
+		auto& anchor_b = distance->GetAnchorB();
+		jd.Initialize(body_a, body_b, { anchor_a.x, anchor_a.y }, { anchor_b.x, anchor_b.y });
+
+		distance->GetLength(jd.minLength, jd.maxLength);
+
+		float hertz = 1.0f;
+		float damping_ratio = 0.7f;
+		b2LinearStiffness(jd.stiffness, jd.damping, hertz, damping_ratio, jd.bodyA, jd.bodyB);
 
 		joint->SetImpl(m_impl->CreateJoint(&jd));
 

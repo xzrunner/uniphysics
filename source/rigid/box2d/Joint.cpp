@@ -55,6 +55,14 @@ PrismaticJoint::PrismaticJoint(const std::shared_ptr<Body>& body_a, const std::s
 {
 }
 
+DistanceJoint::DistanceJoint(const std::shared_ptr<Body>& body_a, const std::shared_ptr<Body>& body_b,
+	                         const sm::vec2& anchor_a, const sm::vec2& anchor_b)
+	: Joint(JointType::Distance, body_a, body_b)
+	, m_anchor_a(anchor_a)
+	, m_anchor_b(anchor_b)
+{
+}
+
 MouseJoint::MouseJoint(const std::shared_ptr<Body>& body_a, const std::shared_ptr<Body>& body_b,
 	                   const sm::vec2& target, float max_force)
 	: Joint(JointType::Mouse, body_a, body_b)

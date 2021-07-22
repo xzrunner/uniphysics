@@ -124,6 +124,25 @@ private:
 
 }; // PrismaticJoint
 
+class DistanceJoint : public Joint
+{
+public:
+	DistanceJoint(const std::shared_ptr<Body>& body_a, const std::shared_ptr<Body>& body_b,
+		const sm::vec2& anchor_a, const sm::vec2& anchor_b);
+
+	auto& GetAnchorA() const { return m_anchor_a; }
+	auto& GetAnchorB() const { return m_anchor_b; }
+
+	void SetLength(float min, float max) { m_min_length = min; m_max_length = max; }
+	void GetLength(float& min, float& max) const { min = m_min_length; max = m_max_length; }
+
+private:
+	sm::vec2 m_anchor_a, m_anchor_b;
+
+	float m_min_length, m_max_length;
+
+}; // DistanceJoint
+
 class MouseJoint : public Joint
 {
 public:
