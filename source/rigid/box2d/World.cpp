@@ -360,6 +360,10 @@ std::shared_ptr<Body> World::QueryByPos(const sm::vec2& pos) const
 
 void World::PreSimulation()
 {
+	if (m_impl->IsLocked()) {
+		return;
+	}
+
 	for (auto& body : m_destroy_bodies) {
 		RemoveBodyForce(body);
 	}
