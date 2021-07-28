@@ -1,5 +1,6 @@
 #include "uniphysics/rigid/box2d/Body.h"
 #include "uniphysics/rigid/box2d/Shape.h"
+#include "uniphysics/rigid/box2d/Fixture.h"
 
 #include <box2d/b2_body.h>
 #include <box2d/b2_fixture.h>
@@ -41,6 +42,25 @@ void Body::ForceActivationState(int state)
 void Body::Activate()
 {
 
+}
+
+void Body::AddFixture(const std::shared_ptr<Shape>& shape,
+	                  int category, const std::vector<int>& not_collide)
+{
+	auto fixture = std::make_shared<Fixture>(shape);
+
+	uint16_t category_bits = 0x1 << category;
+
+	uint16_t mask_bits = 0xFFFF;
+	for (auto category : not_collide) {
+		mask_bits = mask_bits & ~(0x1 << category);
+	}
+
+	int16_t group_index = 0;
+
+	fixture->SetFilter(category_bits, mask_bits, group_index);
+
+	m_fixtures.push_back(fixture);
 }
 
 void Body::ApplyForce(const sm::vec2& force)
@@ -93,24 +113,15 @@ void Body::SetImpl(b2Body* body)
 
 	m_impl = body;
 
-	for (auto& shape : m_fixtures) 
+	for (auto& f : m_fixtures) 
 	{
-		auto _shape = shape->GetImpl();;
-		if (!_shape) {
-			continue;
-		}
-	
-		b2FixtureDef fd;
-		fd.shape = _shape;
+		f->SetDensity(m_density);
+		f->SetRestitution(m_restitution);
+		f->SetFriction(m_friction);
 
-		fd.density = m_density;
-		fd.restitution = m_restitution;
-		fd.friction = m_friction;
-
-		m_impl->SetGravityScale(m_gravity);
-
-		m_impl->CreateFixture(&fd);
+		f->Build(m_impl);
 	}
+	m_impl->SetGravityScale(m_gravity);
 
 	m_impl->SetTransform(b2Vec2(m_pos.x, m_pos.y), m_angle);
 }

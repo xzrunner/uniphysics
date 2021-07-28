@@ -18,6 +18,7 @@ namespace box2d
 
 class World;
 class Shape;
+class Fixture;
 
 class Body : public rigid::Body
 {
@@ -30,9 +31,8 @@ public:
 
     virtual void Activate() override;
 
-    void AddShape(const std::shared_ptr<Shape>& shape) {
-        m_fixtures.push_back(shape);
-    }
+    void AddFixture(const std::shared_ptr<Shape>& shape, 
+        int category = 0, const std::vector<int>& not_collide = std::vector<int>());
 
     auto& GetType() const { return m_type; }
     auto GetFlag() const { return m_flag; }
@@ -63,7 +63,7 @@ public:
 private:
     b2Body* m_impl = nullptr;
   
-    std::vector<std::shared_ptr<Shape>> m_fixtures;
+    std::vector<std::shared_ptr<Fixture>> m_fixtures;
 
     std::string m_type;
 
