@@ -202,6 +202,12 @@ void World::RemoveConstraint(const std::shared_ptr<rigid::Constraint>& cons)
 
 void World::AddJoint(const std::shared_ptr<Joint>& joint)
 {
+	auto body_a = joint->GetBodyA()->GetImpl();
+	auto body_b = joint->GetBodyB()->GetImpl();
+	if (!body_a || !body_b) {
+		return;
+	}
+
 	switch (joint->GetType())
 	{
 	case JointType::Revolute:
