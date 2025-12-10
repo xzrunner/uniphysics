@@ -7,3 +7,9 @@
 [submodule "external/NvCloth"]
 	path = external/NvCloth
 	url = git@github.com:NVIDIAGameWorks/NvCloth.git
+[submodule "external/sm"]
+	path = external/sm
+	url = git@github.com:xzrunner/sm.git
+[submodule "external/tessellation"]
+	path = external/tessellation
+	url = git@github.com:xzrunner/tessellation.git

@@ -1,5 +1,0 @@
-uniphysics/
-projects/*
-
-!projects/uniphysics.vcxproj
-!projects/uniphysics.vcxproj.filters
