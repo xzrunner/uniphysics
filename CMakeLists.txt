@@ -111,14 +111,6 @@ set(ALL_FILES
 # Target
 ################################################################################
 
-include_directories(${CMAKE_SOURCE_DIR}/include)
-include_directories(${CMAKE_SOURCE_DIR}/external/sm)
-include_directories(${CMAKE_SOURCE_DIR}/external/box2d/include)
-include_directories(${CMAKE_SOURCE_DIR}/external/tessellation/include)
-include_directories(${CMAKE_SOURCE_DIR}/external/bullet3/src)
-include_directories(${CMAKE_SOURCE_DIR}/external/NvCloth/NvCloth/extensions/include)
-include_directories(${CMAKE_SOURCE_DIR}/external/NvCloth/PxShared/include)
-include_directories(${CMAKE_SOURCE_DIR}/external/NvCloth/NvCloth/samples/SampleBase)
-include_directories(${CMAKE_SOURCE_DIR}/external/NvCloth/NvCloth/include)
-
 add_library(${PROJECT_NAME} STATIC ${ALL_FILES})
+
+target_include_directories(${PROJECT_NAME} PRIVATE include external/sm external/box2d/include external/tessellation/include external/bullet3/src external/NvCloth/NvCloth/extensions/include external/NvCloth/PxShared/include external/NvCloth/NvCloth/samples/SampleBase external/NvCloth/NvCloth/include)
