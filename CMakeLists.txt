@@ -113,4 +113,15 @@ set(ALL_FILES
 
 add_library(${PROJECT_NAME} STATIC ${ALL_FILES})
 
-target_include_directories(${PROJECT_NAME} PRIVATE include external/sm external/box2d/include external/tessellation/include external/bullet3/src external/NvCloth/NvCloth/extensions/include external/NvCloth/PxShared/include external/NvCloth/NvCloth/samples/SampleBase external/NvCloth/NvCloth/include)
+target_include_directories(${PROJECT_NAME} PUBLIC include)
+target_include_directories(${PROJECT_NAME} PRIVATE external/box2d/include external/bullet3/src external/NvCloth/NvCloth/extensions/include external/NvCloth/PxShared/include external/NvCloth/NvCloth/samples/SampleBase external/NvCloth/NvCloth/include)
+if(TARGET sm)
+    target_link_libraries(${PROJECT_NAME} PRIVATE sm)
+else()
+    target_include_directories(${PROJECT_NAME} PRIVATE external/sm)
+endif()
+if(TARGET tessellation)
+    target_link_libraries(${PROJECT_NAME} PRIVATE tessellation)
+else()
+    target_include_directories(${PROJECT_NAME} PRIVATE external/tessellation/include)
+endif()
